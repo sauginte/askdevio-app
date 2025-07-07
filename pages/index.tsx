@@ -1,10 +1,10 @@
-import Header from "../components/Header/Header";
-import Footer from "../components/Footer/Footer";
+import PageTemplate from "../components/PageTemplate/PageTemplate";
 export default function Home() {
   return (
     <>
-      <Header />
-      <Footer />
+      <PageTemplate>
+        <div>Testas</div>
+      </PageTemplate>
     </>
   );
 }
