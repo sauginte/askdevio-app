@@ -7,6 +7,18 @@ const Header = () => {
       <div className={styles.logo}>
         <img src={logo.src} alt="" />
       </div>
+      <nav className={styles.menu}>
+        <ul>
+          <li>
+            <a href="#">All topics</a>
+          </li>
+        </ul>
+        <ul>
+          <li>
+            <a href="#">Login</a>
+          </li>
+        </ul>
+      </nav>
     </div>
   );
 };
