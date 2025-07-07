@@ -1,3 +1,4 @@
+import Link from "next/link";
 import styles from "./styles.module.css";
 import logo from "../../assets/images/logo.png";
 
@@ -5,17 +6,19 @@ const Header = () => {
   return (
     <div className={styles.container}>
       <div className={styles.logo}>
-        <img src={logo.src} alt="" />
+        <Link href="/">
+          <img src={logo.src} alt="" />
+        </Link>
       </div>
       <nav className={styles.menu}>
         <ul>
           <li>
-            <a href="#">All topics</a>
+            <Link href="/">All topics</Link>
           </li>
         </ul>
         <ul>
           <li>
-            <a href="#">Login</a>
+            <Link href="/login">Login</Link>
           </li>
         </ul>
       </nav>
