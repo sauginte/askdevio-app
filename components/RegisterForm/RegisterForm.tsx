@@ -1,7 +1,102 @@
 import styles from "./styles.module.css";
+import Link from "next/link";
+import Button from "../Button/Button";
+import { ToastContainer, toast } from "react-toastify";
+import { useState } from "react";
+import axios from "axios";
+import Cookies from "js-cookie";
+import { useRouter } from "next/router";
 
 const RegisterForm = () => {
-  return <div></div>;
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const router = useRouter();
+
+  const registerUser = async () => {
+    try {
+      const registerBody = {
+        name: name,
+        email: email,
+        password: password,
+      };
+
+      const response = await axios.post(
+        "http://localhost:3001/users",
+        registerBody
+      );
+
+      Cookies.set("user-jwt-token", response.data.jwtToken);
+
+      if (response.status === 200 || response.status == 201) {
+        toast.success("You successfully signed up!", {
+          position: "bottom-center",
+          autoClose: 5000,
+          hideProgressBar: true,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+        setTimeout(() => {
+          router.push("/");
+        }, 4000);
+      }
+    } catch (err) {
+      console.log(err);
+      if (axios.isAxiosError(err) && err.status === 409) {
+        toast.warn("User with this email already exists", {
+          position: "bottom-center",
+          autoClose: 5000,
+          hideProgressBar: true,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+      }
+    }
+  };
+
+  return (
+    <div className={styles.wrapper}>
+      <div className={styles.headers}>
+        <h1>Feel free to join us!</h1>
+        <p>Register</p>
+      </div>
+
+      <div className={styles.form}>
+        <input
+          type="text"
+          placeholder="name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+        <input
+          type="email"
+          placeholder="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <Button title="Register" onClick={registerUser} />
+      </div>
+
+      <div>
+        <Link href="/login">Already have an account? Log in!</Link>
+      </div>
+
+      <ToastContainer />
+    </div>
+  );
 };
 
 export default RegisterForm;

@@ -38,7 +38,7 @@ const Login = () => {
       );
       Cookies.set("user-token", response.data.jwtToken);
       router.push("/");
-    } catch (err: unknown) {
+    } catch (err) {
       if (axios.isAxiosError(err) && err.status === 401) {
         toast.error("Incorrect email or password. Check provided data", {
           position: "bottom-center",
