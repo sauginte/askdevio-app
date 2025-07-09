@@ -13,7 +13,7 @@ const Header = () => {
       <nav className={styles.menu}>
         <ul>
           <li>
-            <Link href="/">All topics</Link>
+            <Link href="/">All questions</Link>
           </li>
         </ul>
         <ul>
