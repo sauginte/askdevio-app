@@ -16,7 +16,7 @@ const Question = ({ id, question }: QuestionProps) => {
       </div>
       <div className={styles.items}>
         <h5>{question}</h5>
-        <Link href="/">Read answers</Link>
+        <Link href={`/question/${id}`}>Read answers</Link>
       </div>
     </div>
   );
