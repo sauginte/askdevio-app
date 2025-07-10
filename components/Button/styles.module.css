@@ -12,3 +12,10 @@
 .DEFAULT:hover {
   background-color: #506c6355;
 }
+
+.DANGER {
+  background-color: rgba(246, 54, 54, 0.566);
+}
+.DANGER:hover {
+  background-color: rgba(246, 54, 54, 0.926);
+}
