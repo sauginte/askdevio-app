@@ -18,6 +18,11 @@ const Header = () => {
         </ul>
         <ul>
           <li>
+            <Link href={"/insert"}>Ask question</Link>
+          </li>
+        </ul>
+        <ul>
+          <li>
             <Link href="/login">Login</Link>
           </li>
         </ul>
