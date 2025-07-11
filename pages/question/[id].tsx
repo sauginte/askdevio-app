@@ -31,8 +31,6 @@ const index = () => {
     id && fetchQuestionWithAnswersById(id);
   }, [id]);
 
-  console.log(answers);
-
   return (
     <PageTemplate>
       {answers && question ? (

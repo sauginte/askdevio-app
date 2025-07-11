@@ -113,7 +113,7 @@ const QuestionView = ({ answers, question, setAnswers }: QuestionViewProps) => {
       </div>
       {answers.map((a) => {
         return (
-          <div key={a.id} className={styles.answer}>
+          <div key={a.id} id={a.id} className={styles.answer}>
             <p>{a.answerText}</p>
             <div className={styles.button}>
               <Button type="DANGER" title="DELETE" onClick={onDeleteAnswer} />
@@ -125,7 +125,7 @@ const QuestionView = ({ answers, question, setAnswers }: QuestionViewProps) => {
       <div className={styles.insertWrapper}>
         <h4>Add your answer:</h4>
         <textarea
-          placeholder="you answer..."
+          placeholder="your answer..."
           value={answer}
           onChange={(e) => setAnswer(e.target.value)}
         />
