@@ -18,6 +18,8 @@
   border-radius: 0.5rem;
   margin-top: 1rem;
 }
-.button {
-  width: 100px;
+.buttonsWrapper {
+  width: 300px;
+  display: flex;
+  gap: 1rem;
 }

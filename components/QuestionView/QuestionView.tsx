@@ -3,6 +3,9 @@ import styles from "./styles.module.css";
 import { QuestionType } from "@/types/question";
 import { useRouter } from "next/router";
 import Button from "../Button/Button";
+import axios from "axios";
+import Cookies from "js-cookie";
+import { ToastContainer, toast } from "react-toastify";
 
 type QuestionViewProps = {
   answers: AnswerType[];
@@ -10,8 +13,50 @@ type QuestionViewProps = {
 };
 
 const QuestionView = ({ answers, question }: QuestionViewProps) => {
-  // const router = useRouter();
-  //   const id = router.query.id as string;
+  const router = useRouter();
+  const id = router.query.id as string;
+  const jwtToken = Cookies.get("user-token");
+
+  const onDeleteQuestion = async () => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:3001/questions/${id}`,
+        { headers: { Authorization: jwtToken } }
+      );
+
+      if (response.status === 200) {
+        toast.success("Question successfully deleted", {
+          position: "bottom-center",
+          autoClose: 5000,
+          hideProgressBar: true,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+        setTimeout(() => {
+          router.push("/");
+        }, 2000);
+      }
+
+      console.log(response);
+    } catch (err) {
+      if (axios.isAxiosError(err) && err.status === 401) {
+        toast.error("You need to login or sign up to delete a question", {
+          position: "bottom-center",
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+      }
+      console.log(err);
+    }
+  };
 
   const onDeleteAnswer = () => {};
 
@@ -33,9 +78,15 @@ const QuestionView = ({ answers, question }: QuestionViewProps) => {
         );
       })}
 
-      <div className={styles.button}>
+      <div className={styles.buttonsWrapper}>
         <Button type="DEFAULT" title="Add answer" onClick={onAddAnswer} />
+        <Button
+          type="DANGER"
+          title="Delete question"
+          onClick={onDeleteQuestion}
+        />
       </div>
+      <ToastContainer />
     </div>
   );
 };

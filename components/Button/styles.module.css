@@ -7,10 +7,10 @@
 }
 
 .DEFAULT {
-  background-color: #506c63;
+  background-color: #506c6355;
 }
 .DEFAULT:hover {
-  background-color: #506c6355;
+  background-color: #506c63;
 }
 
 .DANGER {
