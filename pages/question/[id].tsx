@@ -10,7 +10,7 @@ import Loading from "../../components/Loading/Loading";
 const index = () => {
   const router = useRouter();
   const [question, setQuestion] = useState<QuestionType | null>(null);
-  const [answer, setAnswer] = useState<AnswerType[]>([]);
+  const [answers, setAnswers] = useState<AnswerType[]>([]);
 
   const id = router.query.id as string;
 
@@ -21,7 +21,7 @@ const index = () => {
       );
 
       setQuestion(response.data.question);
-      setAnswer(response.data.answer);
+      setAnswers(response.data.answer);
     } catch (err) {
       console.log(err);
     }
@@ -31,10 +31,16 @@ const index = () => {
     id && fetchQuestionWithAnswersById(id);
   }, [id]);
 
+  console.log(answers);
+
   return (
     <PageTemplate>
-      {answer && question ? (
-        <QuestionView answers={answer} question={question} />
+      {answers && question ? (
+        <QuestionView
+          answers={answers}
+          question={question}
+          setAnswers={setAnswers}
+        />
       ) : (
         <div>
           <Loading />
