@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import Like from "../../assets/images/like-pressed.svg";
 import Dislike from "../../assets/images/like-unpressed.svg";
 import LikeButton from "../LikeButton/LikeButton";
+import DislikeButton from "../DislikeButton/DislikeButton";
 
 type QuestionViewProps = {
   answers: AnswerType[];
@@ -22,7 +23,10 @@ const QuestionView = ({ answers, question, setAnswers }: QuestionViewProps) => {
   const id = router.query.id as string;
   const jwtToken = Cookies.get("user-token");
   const [answer, setAnswer] = useState("");
-  const [isAnswerLiked, setIsAnswerLiked] = useState();
+  const [isAnswerLiked, setIsAnswerLiked] = useState<Set<string>>(new Set());
+  const [isAnswerDisliked, setIsAnswerDisliked] = useState<Set<string>>(
+    new Set()
+  );
 
   const onDeleteQuestion = async () => {
     try {
@@ -115,16 +119,13 @@ const QuestionView = ({ answers, question, setAnswers }: QuestionViewProps) => {
         { headers: { Authorization: jwtToken } }
       );
 
-      const updatedAnswers = await axios.get(
-        `http://localhost:3001/questions/${id}/answers`,
-        { headers: { Authorization: jwtToken } }
-      );
-
       if (response.status === 200) {
-        setAnswers(updatedAnswers.data.answers);
+        const updatedAnswers = await axios.get(
+          `http://localhost:3001/questions/${id}/answers`,
+          { headers: { Authorization: jwtToken } }
+        );
+        setAnswers(updatedAnswers.data.answer);
       }
-
-      console.log(response);
     } catch (err) {
       console.log(err);
     }
@@ -132,7 +133,103 @@ const QuestionView = ({ answers, question, setAnswers }: QuestionViewProps) => {
 
   const onToggleLike = async (answerId: string) => {
     try {
-      const response = await axios.get("http://localhost:3001/questions/");
+      const alreadyLiked = isAnswerLiked.has(answerId);
+      const alreadyDisliked = isAnswerDisliked.has(answerId);
+      let change = 0;
+      if (alreadyLiked) {
+        change = -1; // Nuimam like
+      } else {
+        change = 1;
+        if (alreadyDisliked) {
+          change = 2; // Nuimam dislike ir dedam like
+        }
+      }
+
+      const response = await axios.patch(
+        `http://localhost:3001/answers/${answerId}`,
+        { change },
+        { headers: { Authorization: jwtToken } }
+      );
+
+      if (response.status === 200) {
+        const updatedAnswer = response.data.answer;
+        setAnswers((prevAnswers) =>
+          prevAnswers.map((a) =>
+            a.id === answerId
+              ? { ...a, likeNumber: updatedAnswer.likeNumber }
+              : a
+          )
+        );
+
+        setIsAnswerLiked((prev) => {
+          const updated = new Set(prev);
+          if (alreadyLiked) {
+            updated.delete(answerId);
+          } else {
+            updated.add(answerId);
+          }
+          return updated;
+        });
+
+        if (alreadyDisliked) {
+          setIsAnswerDisliked((prev) => {
+            const updated = new Set(prev);
+            updated.delete(answerId);
+            return updated;
+          });
+        }
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const onToggleDislike = async (answerId: string) => {
+    try {
+      const alreadyLiked = isAnswerLiked.has(answerId);
+      const alreadyDisliked = isAnswerDisliked.has(answerId);
+      let change = 0;
+      if (alreadyDisliked) {
+        change = 1; // Nuimam like
+      } else {
+        change = -1;
+        if (alreadyLiked) {
+          change = -2; // Nuimam dislike ir dedam like
+        }
+      }
+
+      const response = await axios.patch(
+        `http://localhost:3001/answers/${answerId}`,
+        { change },
+        { headers: { Authorization: jwtToken } }
+      );
+
+      if (response.status === 200) {
+        const updatedAnswer = response.data.answer;
+        setAnswers((prevAnswers) =>
+          prevAnswers.map((a) =>
+            a.id === answerId
+              ? { ...a, likeNumber: updatedAnswer.likeNumber }
+              : a
+          )
+        );
+        setIsAnswerDisliked((prev) => {
+          const updated = new Set(prev);
+          if (alreadyDisliked) {
+            updated.delete(answerId);
+          } else {
+            updated.add(answerId);
+          }
+          return updated;
+        });
+        if (alreadyLiked) {
+          setIsAnswerLiked((prev) => {
+            const updated = new Set(prev);
+            updated.delete(answerId);
+            return updated;
+          });
+        }
+      }
     } catch (err) {
       console.log(err);
     }
@@ -144,14 +241,17 @@ const QuestionView = ({ answers, question, setAnswers }: QuestionViewProps) => {
         <h3>{question.questionText}</h3>
       </div>
       {answers.map((a) => {
+        const isLiked = isAnswerLiked.has(a.id);
+        const isDisliked = isAnswerDisliked.has(a.id);
         return (
           <div key={a.id} id={a.id} className={styles.answer}>
-            <LikeButton
-              likeNumber={a.likeNumber}
-              isLiked={false}
-              onClick={() => onToggleLike(a.id)}
+            <LikeButton isLiked={isLiked} onClick={() => onToggleLike(a.id)} />
+            <DislikeButton
+              isDisliked={isDisliked}
+              onClick={() => onToggleDislike(a.id)}
             />
-            <p>{a.answerText}</p>
+            <p className={styles.likeNumber}>{a.likeNumber}</p>
+            <p className={styles.answerText}>{a.answerText}</p>
             <div className={styles.button}>
               <Button
                 type="DANGER"

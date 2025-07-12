@@ -1,20 +1,18 @@
 import styles from "./styles.module.css";
-import Liked from "../../assets/images/like-pressed.svg";
-import Disliked from "../../assets/images/like-unpressed.svg";
+import Like from "../../assets/images/like-outline.svg";
+import Liked from "../../assets/images/like-filled.svg";
 
 type LikeButtonProps = {
-  likeNumber: number;
   isLiked: boolean;
   onClick: () => void;
 };
 
-const LikeButton = ({ likeNumber, isLiked, onClick }: LikeButtonProps) => {
+const LikeButton = ({ isLiked, onClick }: LikeButtonProps) => {
   return (
     <div className={styles.likesWrapper}>
       <button onClick={onClick}>
-        <img src={isLiked ? Liked.src : Disliked.src} alt="" />
+        <img src={isLiked ? Liked.src : Like.src} alt="" />
       </button>
-      <p className={styles.likeNumber}>{likeNumber}</p>
     </div>
   );
 };
