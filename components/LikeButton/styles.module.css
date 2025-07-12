@@ -1,0 +1,18 @@
+.likesWrapper {
+  display: flex;
+  gap: 0.3rem;
+
+  button {
+    background-color: transparent;
+    border: none;
+  }
+
+  button img {
+    width: 30px;
+  }
+}
+.likeNumber {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

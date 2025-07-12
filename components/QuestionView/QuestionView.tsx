@@ -7,6 +7,9 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { ToastContainer, toast } from "react-toastify";
 import { useEffect, useState } from "react";
+import Like from "../../assets/images/like-pressed.svg";
+import Dislike from "../../assets/images/like-unpressed.svg";
+import LikeButton from "../LikeButton/LikeButton";
 
 type QuestionViewProps = {
   answers: AnswerType[];
@@ -19,6 +22,7 @@ const QuestionView = ({ answers, question, setAnswers }: QuestionViewProps) => {
   const id = router.query.id as string;
   const jwtToken = Cookies.get("user-token");
   const [answer, setAnswer] = useState("");
+  const [isAnswerLiked, setIsAnswerLiked] = useState();
 
   const onDeleteQuestion = async () => {
     try {
@@ -104,7 +108,35 @@ const QuestionView = ({ answers, question, setAnswers }: QuestionViewProps) => {
     }
   };
 
-  const onDeleteAnswer = () => {};
+  const onDeleteAnswer = async (answerId: string) => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:3001/answers/${answerId}`,
+        { headers: { Authorization: jwtToken } }
+      );
+
+      const updatedAnswers = await axios.get(
+        `http://localhost:3001/questions/${id}/answers`,
+        { headers: { Authorization: jwtToken } }
+      );
+
+      if (response.status === 200) {
+        setAnswers(updatedAnswers.data.answers);
+      }
+
+      console.log(response);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const onToggleLike = async (answerId: string) => {
+    try {
+      const response = await axios.get("http://localhost:3001/questions/");
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <div className={styles.container}>
@@ -114,9 +146,18 @@ const QuestionView = ({ answers, question, setAnswers }: QuestionViewProps) => {
       {answers.map((a) => {
         return (
           <div key={a.id} id={a.id} className={styles.answer}>
+            <LikeButton
+              likeNumber={a.likeNumber}
+              isLiked={false}
+              onClick={() => onToggleLike(a.id)}
+            />
             <p>{a.answerText}</p>
             <div className={styles.button}>
-              <Button type="DANGER" title="DELETE" onClick={onDeleteAnswer} />
+              <Button
+                type="DANGER"
+                title="DELETE"
+                onClick={() => onDeleteAnswer(a.id)}
+              />
             </div>
           </div>
         );
