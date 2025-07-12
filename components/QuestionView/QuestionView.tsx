@@ -7,10 +7,9 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { ToastContainer, toast } from "react-toastify";
 import { useEffect, useState } from "react";
-import Like from "../../assets/images/like-pressed.svg";
-import Dislike from "../../assets/images/like-unpressed.svg";
 import LikeButton from "../LikeButton/LikeButton";
 import DislikeButton from "../DislikeButton/DislikeButton";
+import InsertAnswer from "../InsertAnswer/InsertAnswer";
 
 type QuestionViewProps = {
   answers: AnswerType[];
@@ -108,6 +107,18 @@ const QuestionView = ({ answers, question, setAnswers }: QuestionViewProps) => {
           theme: "colored",
         });
       }
+      if (axios.isAxiosError(err) && err.status === 400) {
+        toast.error("Enter you answer", {
+          position: "bottom-center",
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+      }
       console.log(err);
     }
   };
@@ -127,6 +138,18 @@ const QuestionView = ({ answers, question, setAnswers }: QuestionViewProps) => {
         setAnswers(updatedAnswers.data.answer);
       }
     } catch (err) {
+      if (axios.isAxiosError(err) && err.status === 401) {
+        toast.error("You need to login or sign up to delete an answer", {
+          position: "bottom-center",
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+      }
       console.log(err);
     }
   };
@@ -180,6 +203,18 @@ const QuestionView = ({ answers, question, setAnswers }: QuestionViewProps) => {
         }
       }
     } catch (err) {
+      if (axios.isAxiosError(err) && err.status === 401) {
+        toast.error("You need to login or sign up to like answers", {
+          position: "bottom-center",
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+      }
       console.log(err);
     }
   };
@@ -231,6 +266,18 @@ const QuestionView = ({ answers, question, setAnswers }: QuestionViewProps) => {
         }
       }
     } catch (err) {
+      if (axios.isAxiosError(err) && err.status === 401) {
+        toast.error("You need to login or sign up to dislike answers", {
+          position: "bottom-center",
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+      }
       console.log(err);
     }
   };
@@ -263,15 +310,11 @@ const QuestionView = ({ answers, question, setAnswers }: QuestionViewProps) => {
         );
       })}
 
-      <div className={styles.insertWrapper}>
-        <h4>Add your answer:</h4>
-        <textarea
-          placeholder="your answer..."
-          value={answer}
-          onChange={(e) => setAnswer(e.target.value)}
-        />
-        <Button type="DEFAULT" title="Add answer" onClick={onAddAnswer} />
-      </div>
+      <InsertAnswer
+        answer={answer}
+        onChange={(e) => setAnswer(e.target.value)}
+        onClick={onAddAnswer}
+      />
 
       <div className={styles.buttonWrapper}>
         <Button

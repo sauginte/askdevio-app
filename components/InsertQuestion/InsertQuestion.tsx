@@ -10,6 +10,7 @@ const InsertQuestion = () => {
   const [question, setQuestion] = useState("");
   const jwtToken = Cookies.get("user-token");
   const router = useRouter();
+  const [errorMessage, setErrorMessage] = useState("");
 
   const onAddQuestion = async () => {
     try {
@@ -39,6 +40,18 @@ const InsertQuestion = () => {
         }, 3000);
       }
     } catch (err) {
+      if (axios.isAxiosError(err) && err.status === 400) {
+        toast.error("Enter your question", {
+          position: "bottom-center",
+          autoClose: 5000,
+          hideProgressBar: true,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+      }
       if (axios.isAxiosError(err) && err.status === 401) {
         toast.error("You need to login or sign up to ask a question", {
           position: "bottom-center",

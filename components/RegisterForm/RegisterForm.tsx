@@ -16,12 +16,25 @@ const RegisterForm = () => {
 
   const registerUser = async () => {
     try {
+      if (name === "" || email === "" || password === "") {
+        toast.error("Fill all fields!", {
+          position: "bottom-center",
+          autoClose: 5000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+      }
       const registerBody = {
         name: name,
         email: email,
         password: password,
       };
 
+      console.log(registerBody);
       const response = await axios.post(
         "http://localhost:3001/users",
         registerBody
@@ -48,6 +61,18 @@ const RegisterForm = () => {
       console.log(err);
       if (axios.isAxiosError(err) && err.status === 409) {
         toast.warn("User with this email already exists", {
+          position: "bottom-center",
+          autoClose: 5000,
+          hideProgressBar: true,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+      }
+      if (axios.isAxiosError(err) && err.status === 400) {
+        toast.error("Check provided email or password", {
           position: "bottom-center",
           autoClose: 5000,
           hideProgressBar: true,
