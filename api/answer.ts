@@ -9,7 +9,7 @@ type addAnswerProps = {
 
 export const addAnswer = async ({ jwtToken, answer, id }: addAnswerProps) => {
   try {
-    const userIdResult = await axios.get(`${config.BASE_URL}/users/"`, {
+    const userIdResult = await axios.get(`${config.BASE_URL}/users/`, {
       headers: { Authorization: jwtToken },
     });
 

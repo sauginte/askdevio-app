@@ -1,12 +1,16 @@
 .wrapper {
   width: 90%;
-  border: 0.2px solid grey;
   padding: 2rem;
   display: flex;
   gap: 2rem;
   background-color: white;
   border-radius: 1.2rem;
   flex-direction: column;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+.wrapper:hover {
+  scale: 1.05;
+  transition: 0.3s;
 }
 
 .items {

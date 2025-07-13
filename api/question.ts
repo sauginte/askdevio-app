@@ -3,7 +3,7 @@ import axios from "axios";
 
 export const getQuestions = async () => {
   try {
-    const response = await axios.get(`${config.BASE_URL}/questions"`);
+    const response = await axios.get(`${config.BASE_URL}/questions`);
 
     return response;
   } catch (err) {
