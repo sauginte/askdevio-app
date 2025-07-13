@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import PageTemplate from "../components/PageTemplate/PageTemplate";
 import { QuestionType } from "@/types/question";
-import axios from "axios";
 import MainWrapper from "@/components/MainWrapper/MainWrapper";
+import { getQuestions } from "@/api/question";
 
 export default function Home() {
   const [questions, setQuestions] = useState<QuestionType[]>([]);
 
   const getAllQuestions = async () => {
     try {
-      const response = await axios.get("http://localhost:3001/questions");
+      const response = await getQuestions();
 
       setQuestions(response.data.questions);
     } catch (err) {

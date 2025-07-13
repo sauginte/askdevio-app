@@ -6,6 +6,7 @@ import { useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
+import { userRegister } from "@/api/user";
 
 const RegisterForm = () => {
   const [name, setName] = useState("");
@@ -28,19 +29,13 @@ const RegisterForm = () => {
           theme: "light",
         });
       }
-      const registerBody = {
+      const response = await userRegister({
         name: name,
         email: email,
         password: password,
-      };
+      });
 
-      console.log(registerBody);
-      const response = await axios.post(
-        "http://localhost:3001/users",
-        registerBody
-      );
-
-      Cookies.set("user-jwt-token", response.data.jwtToken);
+      Cookies.set("user-token", response.data.jwtToken);
 
       if (response.status === 200 || response.status == 201) {
         toast.success("You successfully signed up! ✅", {

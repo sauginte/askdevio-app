@@ -6,10 +6,18 @@ import Button from "../Button/Button";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { ToastContainer, toast } from "react-toastify";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import LikeButton from "../LikeButton/LikeButton";
 import DislikeButton from "../DislikeButton/DislikeButton";
 import InsertAnswer from "../InsertAnswer/InsertAnswer";
+import { deleteQuestion } from "@/api/question";
+import {
+  addAnswer,
+  deleteAnswer,
+  toggleDislike,
+  toggleLike,
+  updateAnswer,
+} from "@/api/answer";
 
 type QuestionViewProps = {
   answers: AnswerType[];
@@ -29,10 +37,7 @@ const QuestionView = ({ answers, question, setAnswers }: QuestionViewProps) => {
 
   const onDeleteQuestion = async () => {
     try {
-      const response = await axios.delete(
-        `http://localhost:3001/questions/${id}`,
-        { headers: { Authorization: jwtToken } }
-      );
+      const response = await deleteQuestion({ jwtToken: jwtToken!, id: id });
 
       if (response.status === 200) {
         toast.success("Question successfully deleted ✅", {
@@ -70,23 +75,11 @@ const QuestionView = ({ answers, question, setAnswers }: QuestionViewProps) => {
 
   const onAddAnswer = async () => {
     try {
-      const userIdResult = await axios.get("http://localhost:3001/users/", {
-        headers: { Authorization: jwtToken },
+      const result = await addAnswer({
+        jwtToken: jwtToken!,
+        id: id,
+        answer: answer,
       });
-
-      const userId = userIdResult.data.userId;
-
-      const answerBody = {
-        userId: userId,
-        answerText: answer,
-        likeNumber: 0,
-      };
-
-      const result = await axios.post(
-        `http://localhost:3001/questions/${id}/answers`,
-        answerBody,
-        { headers: { Authorization: jwtToken } }
-      );
 
       const newAnswer = result.data.answer;
 
@@ -125,16 +118,16 @@ const QuestionView = ({ answers, question, setAnswers }: QuestionViewProps) => {
 
   const onDeleteAnswer = async (answerId: string) => {
     try {
-      const response = await axios.delete(
-        `http://localhost:3001/answers/${answerId}`,
-        { headers: { Authorization: jwtToken } }
-      );
+      const response = await deleteAnswer({
+        jwtToken: jwtToken!,
+        answerId: answerId,
+      });
 
       if (response.status === 200) {
-        const updatedAnswers = await axios.get(
-          `http://localhost:3001/questions/${id}/answers`,
-          { headers: { Authorization: jwtToken } }
-        );
+        const updatedAnswers = await updateAnswer({
+          jwtToken: jwtToken!,
+          id: id,
+        });
         setAnswers(updatedAnswers.data.answer);
       }
     } catch (err) {
@@ -168,11 +161,11 @@ const QuestionView = ({ answers, question, setAnswers }: QuestionViewProps) => {
         }
       }
 
-      const response = await axios.patch(
-        `http://localhost:3001/answers/${answerId}`,
-        { change },
-        { headers: { Authorization: jwtToken } }
-      );
+      const response = await toggleLike({
+        jwtToken: jwtToken!,
+        change: change,
+        answerId: answerId,
+      });
 
       if (response.status === 200) {
         const updatedAnswer = response.data.answer;
@@ -233,11 +226,11 @@ const QuestionView = ({ answers, question, setAnswers }: QuestionViewProps) => {
         }
       }
 
-      const response = await axios.patch(
-        `http://localhost:3001/answers/${answerId}`,
-        { change },
-        { headers: { Authorization: jwtToken } }
-      );
+      const response = await toggleDislike({
+        jwtToken: jwtToken!,
+        answerId: answerId,
+        change: change,
+      });
 
       if (response.status === 200) {
         const updatedAnswer = response.data.answer;

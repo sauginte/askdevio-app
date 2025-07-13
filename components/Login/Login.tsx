@@ -6,6 +6,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import { ToastContainer, toast } from "react-toastify";
+import { userLogin } from "@/api/user";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -27,15 +28,9 @@ const Login = () => {
           theme: "light",
         });
       }
-      const loginBody = {
-        email: email,
-        password: password,
-      };
 
-      const response = await axios.post(
-        "http://localhost:3001/users/login",
-        loginBody
-      );
+      const response = await userLogin({ email: email, password: password });
+
       Cookies.set("user-token", response.data.jwtToken);
       router.push("/");
     } catch (err) {

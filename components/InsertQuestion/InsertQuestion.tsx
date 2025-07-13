@@ -5,6 +5,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { ToastContainer, toast } from "react-toastify";
 import { useRouter } from "next/router";
+import { addQuestion } from "@/api/question";
 
 const InsertQuestion = () => {
   const [question, setQuestion] = useState("");
@@ -13,15 +14,10 @@ const InsertQuestion = () => {
 
   const onAddQuestion = async () => {
     try {
-      const questionBody = {
-        questionText: question,
-      };
-
-      const response = await axios.post(
-        "http://localhost:3001/questions/insert",
-        questionBody,
-        { headers: { Authorization: jwtToken } }
-      );
+      const response = await addQuestion({
+        jwtToken: jwtToken!,
+        question: question,
+      });
 
       if (response.status === 201) {
         toast.success("Your question has been added! ✅", {
