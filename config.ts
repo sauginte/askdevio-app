@@ -1,3 +1,3 @@
 export const config = {
-  BASE_URL: "http://localhost:3001",
+  BASE_URL: "https://askdevio-api.onrender.com",
 };
