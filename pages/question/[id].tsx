@@ -3,11 +3,11 @@ import QuestionView from "../../components/QuestionView/QuestionView";
 import { useEffect, useState } from "react";
 import { QuestionType } from "@/types/question";
 import { useRouter } from "next/router";
-import axios from "axios";
 import { AnswerType } from "@/types/answer";
 import Loading from "../../components/Loading/Loading";
+import { fetchQuestionWithAnswers } from "@/api/question";
 
-const index = () => {
+const QuestionPage = () => {
   const router = useRouter();
   const [question, setQuestion] = useState<QuestionType | null>(null);
   const [answers, setAnswers] = useState<AnswerType[]>([]);
@@ -16,9 +16,7 @@ const index = () => {
 
   const fetchQuestionWithAnswersById = async (id: string) => {
     try {
-      const response = await axios.get(
-        `http://localhost:3001/questions/${id}/answers`
-      );
+      const response = await fetchQuestionWithAnswers({ id: id });
 
       setQuestion(response.data.question);
       setAnswers(response.data.answer);
@@ -28,7 +26,9 @@ const index = () => {
   };
 
   useEffect(() => {
-    id && fetchQuestionWithAnswersById(id);
+    if (id) {
+      fetchQuestionWithAnswersById(id);
+    }
   }, [id]);
 
   return (
@@ -48,4 +48,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default QuestionPage;

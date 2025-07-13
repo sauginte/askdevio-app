@@ -1,7 +1,7 @@
 import PageTemplate from "@/components/PageTemplate/PageTemplate";
 import InsertQuestion from "@/components/InsertQuestion/InsertQuestion";
 
-const index = () => {
+const InsertPage = () => {
   return (
     <PageTemplate>
       <InsertQuestion />
@@ -9,4 +9,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default InsertPage;

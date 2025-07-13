@@ -1,7 +1,7 @@
 import PageTemplate from "../../components/PageTemplate/PageTemplate";
 import RegisterForm from "@/components/RegisterForm/RegisterForm";
 
-const index = () => {
+const RegisterPage = () => {
   return (
     <PageTemplate>
       <RegisterForm />
@@ -9,4 +9,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default RegisterPage;

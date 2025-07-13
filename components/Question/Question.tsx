@@ -17,17 +17,17 @@ const Question = ({ id, question, createdAt }: QuestionProps) => {
     minute: "2-digit",
   });
   return (
-    <div className={styles.wrapper}>
+    <Link href={`/question/${id}`} className={styles.wrapper}>
       <div className={styles.items}>
         <p className={styles.date}>{formattedDate}</p>
         <div className={styles.contentWrp}>
           <p className={styles.question}>{question}</p>
           <div className={styles.readMoreWrp}>
-            <Link href={`/question/${id}`}>Read answers</Link>
+            <div>Read answers</div>
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

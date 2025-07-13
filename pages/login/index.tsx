@@ -1,7 +1,7 @@
 import PageTemplate from "../../components/PageTemplate/PageTemplate";
 import Login from "../../components/Login/Login";
 
-const index = () => {
+const LoginPage = () => {
   return (
     <div>
       <PageTemplate>
@@ -11,4 +11,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default LoginPage;

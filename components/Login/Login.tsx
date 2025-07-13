@@ -52,7 +52,7 @@ const Login = () => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.headers}>
-        <h2>We've been waiting for you!</h2>
+        <h2>{"We've been waiting for you!"}</h2>
         <p>Login</p>
       </div>
 

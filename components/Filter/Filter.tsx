@@ -1,7 +1,6 @@
 import styles from "./styles.module.css";
 import Button from "../Button/Button";
 import axios from "axios";
-import { useState } from "react";
 import { QuestionType } from "@/types/question";
 
 type FilterProps = {

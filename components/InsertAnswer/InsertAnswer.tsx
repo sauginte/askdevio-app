@@ -12,7 +12,7 @@ const InsertAnswer = ({ answer, onChange, onClick }: InsertAnswerProps) => {
     <div className={styles.insertWrapper}>
       <h4>Add your answer:</h4>
       <textarea
-        placeholder="your answer..."
+        placeholder="Your answer..."
         value={answer}
         onChange={onChange}
       />

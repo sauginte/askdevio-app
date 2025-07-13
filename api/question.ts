@@ -51,3 +51,20 @@ export const addQuestion = async ({ jwtToken, question }: addQuestionProps) => {
     throw err;
   }
 };
+
+type fetchQuestionWithAnswersProps = {
+  id: string;
+};
+export const fetchQuestionWithAnswers = async ({
+  id,
+}: fetchQuestionWithAnswersProps) => {
+  try {
+    const response = await axios.get(
+      `${config.BASE_URL}/questions/${id}/answers`
+    );
+
+    return response;
+  } catch (err) {
+    throw err;
+  }
+};

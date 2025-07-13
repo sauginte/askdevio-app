@@ -153,11 +153,11 @@ const QuestionView = ({ answers, question, setAnswers }: QuestionViewProps) => {
       const alreadyDisliked = isAnswerDisliked.has(answerId);
       let change = 0;
       if (alreadyLiked) {
-        change = -1; // Nuimam like
+        change = -1;
       } else {
         change = 1;
         if (alreadyDisliked) {
-          change = 2; // Nuimam dislike ir dedam like
+          change = 2;
         }
       }
 
@@ -218,11 +218,11 @@ const QuestionView = ({ answers, question, setAnswers }: QuestionViewProps) => {
       const alreadyDisliked = isAnswerDisliked.has(answerId);
       let change = 0;
       if (alreadyDisliked) {
-        change = 1; // Nuimam like
+        change = 1;
       } else {
         change = -1;
         if (alreadyLiked) {
-          change = -2; // Nuimam dislike ir dedam like
+          change = -2;
         }
       }
 
