@@ -1,8 +1,19 @@
 import Link from "next/link";
 import styles from "./styles.module.css";
 import logo from "../../assets/images/logo.png";
+import Cookies from "js-cookie";
+import { useRouter } from "next/router";
+import NavBar from "../NavBar/NavBar";
 
 const Header = () => {
+  const router = useRouter();
+  const jwt = Cookies.get("user-token");
+
+  const onLogout = () => {
+    Cookies.remove("user-token");
+    router.push("/");
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.logo}>
@@ -10,23 +21,7 @@ const Header = () => {
           <img src={logo.src} alt="" />
         </Link>
       </div>
-      <nav className={styles.menu}>
-        <ul>
-          <li>
-            <Link href="/">All questions</Link>
-          </li>
-        </ul>
-        <ul>
-          <li>
-            <Link href={"/insert"}>Ask question</Link>
-          </li>
-        </ul>
-        <ul>
-          <li>
-            <Link href="/login">Login</Link>
-          </li>
-        </ul>
-      </nav>
+      <NavBar jwtToken={jwt!} onClick={onLogout} />
     </div>
   );
 };

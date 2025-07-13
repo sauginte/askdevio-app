@@ -1,0 +1,45 @@
+.menu {
+  ul {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+  li {
+    list-style: none;
+
+    a {
+      text-decoration: none;
+      color: #ffc700;
+      font-size: 0.8rem;
+    }
+  }
+}
+
+.loginBtn {
+  width: 100px;
+  padding: 0.8rem;
+  background-color: #ffc700;
+  text-align: center;
+  border-radius: 0.5rem;
+}
+.menu li.loginBtn a {
+  color: white;
+}
+.menu li.loginBtn:hover {
+  background-color: white;
+  border: 1px solid #ffc700;
+
+  a {
+    color: #ffc700;
+  }
+}
+.logoutBtn {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+
+  img {
+    width: 30px;
+    object-fit: cover;
+  }
+}
