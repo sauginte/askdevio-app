@@ -43,3 +43,13 @@
     object-fit: cover;
   }
 }
+
+@media only screen and (max-width: 768px) {
+  .menu {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    margin-top: 2rem;
+  }
+}
