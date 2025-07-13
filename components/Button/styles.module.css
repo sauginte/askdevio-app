@@ -1,16 +1,18 @@
 .main {
   width: 100%;
   color: white;
-  border: 0.2px solid grey;
+  border: none;
   border-radius: 0.3rem;
   padding: 0.5rem;
+  cursor: pointer;
 }
 
 .DEFAULT {
-  background-color: #506c6355;
+  background-color: #ffc700;
 }
 .DEFAULT:hover {
-  background-color: #506c63;
+  background-color: #ffc000;
+  color: #ffffff;
 }
 
 .DANGER {

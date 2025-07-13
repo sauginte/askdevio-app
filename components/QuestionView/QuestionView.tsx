@@ -292,19 +292,26 @@ const QuestionView = ({ answers, question, setAnswers }: QuestionViewProps) => {
         const isDisliked = isAnswerDisliked.has(a.id);
         return (
           <div key={a.id} id={a.id} className={styles.answer}>
-            <LikeButton isLiked={isLiked} onClick={() => onToggleLike(a.id)} />
-            <DislikeButton
-              isDisliked={isDisliked}
-              onClick={() => onToggleDislike(a.id)}
-            />
-            <p className={styles.likeNumber}>{a.likeNumber}</p>
-            <p className={styles.answerText}>{a.answerText}</p>
-            <div className={styles.button}>
-              <Button
-                type="DANGER"
-                title="DELETE"
-                onClick={() => onDeleteAnswer(a.id)}
+            <div className={styles.likesWrapper}>
+              <LikeButton
+                isLiked={isLiked}
+                onClick={() => onToggleLike(a.id)}
               />
+              <p>{a.likeNumber}</p>
+              <DislikeButton
+                isDisliked={isDisliked}
+                onClick={() => onToggleDislike(a.id)}
+              />
+            </div>
+            <div className={styles.answerWrp}>
+              <p className={styles.answerText}>{a.answerText}</p>
+              <div className={styles.button}>
+                <Button
+                  type="DANGER"
+                  title="DELETE"
+                  onClick={() => onDeleteAnswer(a.id)}
+                />
+              </div>
             </div>
           </div>
         );

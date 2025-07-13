@@ -1,37 +1,49 @@
 .container {
-  /* width: 500px; */
   display: flex;
   flex-direction: column;
-  /* background-color: white; */
   align-items: center;
   justify-content: center;
   padding: 2rem;
   gap: 1rem;
 }
-.answer {
+.question {
   width: 70%;
+  text-align: center;
+}
+.answerWrp {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.answer {
+  width: 80%;
   display: flex;
   gap: 2rem;
-  /* justify-content: space-evenly; */
   background-color: white;
   padding: 1rem;
   border: 1px solid grey;
   border-radius: 0.5rem;
   margin-top: 1rem;
 }
-.answerText {
-  width: 300px;
+.likesWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+  padding-left: 1rem;
 }
-
+.answerText {
+  width: 80%;
+  padding-left: 2rem;
+  font-size: 0.8rem;
+}
+.button {
+  padding-right: 1rem;
+}
 .buttonWrapper {
-  width: 300px;
+  width: 150px;
   display: flex;
   gap: 1rem;
   padding-top: 2rem;
-}
-
-.likeNumber {
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }

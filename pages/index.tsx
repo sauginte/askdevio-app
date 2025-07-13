@@ -24,7 +24,7 @@ export default function Home() {
     <>
       <PageTemplate>
         <div>
-          <MainWrapper questions={questions} setQuestions={setQuestions} />
+          <MainWrapper questions={questions} />
         </div>
       </PageTemplate>
     </>

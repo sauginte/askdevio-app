@@ -1,11 +1,21 @@
 .insertWrapper {
-  width: 70%;
+  width: 80%;
   display: flex;
   flex-direction: column;
-  padding-top: 2rem;
+  padding-top: 5rem;
   gap: 0.7rem;
 
   textarea {
     height: 100px;
+    font-family: inherit;
+  }
+}
+
+.button {
+  display: flex;
+  justify-content: flex-end;
+
+  button {
+    width: 20%;
   }
 }

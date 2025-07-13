@@ -16,15 +16,15 @@ const Login = () => {
   const loginUser = async () => {
     try {
       if (email === "" || password === "") {
-        toast.error("Fill all fields!", {
-          position: "bottom-center",
+        toast.error("Fill all fields! 📝", {
+          position: "top-center",
           autoClose: 5000,
           hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: false,
+          closeOnClick: false,
+          pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: "colored",
+          theme: "light",
         });
       }
       const loginBody = {
@@ -40,15 +40,15 @@ const Login = () => {
       router.push("/");
     } catch (err) {
       if (axios.isAxiosError(err) && err.status === 401) {
-        toast.error("Incorrect email or password. Check provided data", {
-          position: "bottom-center",
+        toast.error("Incorrect email or password. Check provided data 🧐", {
+          position: "top-center",
           autoClose: 5000,
           hideProgressBar: true,
           closeOnClick: false,
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: "colored",
+          theme: "light",
         });
       }
       console.log(err);
@@ -57,7 +57,7 @@ const Login = () => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.headers}>
-        <h1>We've been waiting for you!</h1>
+        <h2>We've been waiting for you!</h2>
         <p>Login</p>
       </div>
 
@@ -77,7 +77,7 @@ const Login = () => {
         <Button title="Login" onClick={loginUser} />
       </div>
 
-      <div>
+      <div className={styles.registerLink}>
         <Link href="/register">Not a member yet? Join here!</Link>
       </div>
 

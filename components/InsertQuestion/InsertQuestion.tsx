@@ -10,7 +10,6 @@ const InsertQuestion = () => {
   const [question, setQuestion] = useState("");
   const jwtToken = Cookies.get("user-token");
   const router = useRouter();
-  const [errorMessage, setErrorMessage] = useState("");
 
   const onAddQuestion = async () => {
     try {
@@ -70,13 +69,15 @@ const InsertQuestion = () => {
   return (
     <div className={styles.wrapper}>
       <h3>Don't be shy... Ask a question!</h3>
-      <textarea
-        placeholder="your question..."
-        value={question}
-        onChange={(e) => setQuestion(e.target.value)}
-      />
+      <div className={styles.inputWrp}>
+        <textarea
+          placeholder="your question..."
+          value={question}
+          onChange={(e) => setQuestion(e.target.value)}
+        />
+      </div>
       <div className={styles.button}>
-        <Button type="DEFAULT" title="Add" onClick={onAddQuestion} />
+        <Button type="DEFAULT" title="Submit" onClick={onAddQuestion} />
       </div>
       <ToastContainer />
     </div>

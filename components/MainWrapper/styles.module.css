@@ -1,8 +1,21 @@
 .wrapper {
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   padding: 2rem;
   gap: 1rem;
+}
+.welcomeMessage {
+  width: 90%;
+  display: flex;
+  text-align: left;
+  padding-bottom: 1rem;
+  justify-content: space-between;
+
+  h3 {
+    width: 50%;
+    padding-left: 0.3rem;
+  }
 }

@@ -17,15 +17,15 @@ const RegisterForm = () => {
   const registerUser = async () => {
     try {
       if (name === "" || email === "" || password === "") {
-        toast.error("Fill all fields!", {
-          position: "bottom-center",
+        toast.error("Fill all fields! 📝", {
+          position: "top-center",
           autoClose: 5000,
           hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: false,
+          closeOnClick: false,
+          pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: "colored",
+          theme: "light",
         });
       }
       const registerBody = {
@@ -43,15 +43,15 @@ const RegisterForm = () => {
       Cookies.set("user-jwt-token", response.data.jwtToken);
 
       if (response.status === 200 || response.status == 201) {
-        toast.success("You successfully signed up!", {
-          position: "bottom-center",
+        toast.success("You successfully signed up! ✅", {
+          position: "top-center",
           autoClose: 5000,
           hideProgressBar: true,
           closeOnClick: false,
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: "colored",
+          theme: "light",
         });
         setTimeout(() => {
           router.push("/");
@@ -60,27 +60,27 @@ const RegisterForm = () => {
     } catch (err) {
       console.log(err);
       if (axios.isAxiosError(err) && err.status === 409) {
-        toast.warn("User with this email already exists", {
-          position: "bottom-center",
+        toast.warn("User with this email already exists 🤨", {
+          position: "top-center",
           autoClose: 5000,
           hideProgressBar: true,
           closeOnClick: false,
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: "colored",
+          theme: "light",
         });
       }
       if (axios.isAxiosError(err) && err.status === 400) {
-        toast.error("Check provided email or password", {
-          position: "bottom-center",
+        toast.error("Check provided email or password 🧐", {
+          position: "top-center",
           autoClose: 5000,
           hideProgressBar: true,
           closeOnClick: false,
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: "colored",
+          theme: "light",
         });
       }
     }
@@ -115,7 +115,7 @@ const RegisterForm = () => {
         <Button title="Register" onClick={registerUser} />
       </div>
 
-      <div>
+      <div className={styles.loginLink}>
         <Link href="/login">Already have an account? Log in!</Link>
       </div>
 

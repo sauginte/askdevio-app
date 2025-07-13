@@ -1,5 +1,4 @@
 import styles from "./styles.module.css";
-import { useState } from "react";
 import Button from "../Button/Button";
 
 type InsertAnswerProps = {
@@ -9,7 +8,6 @@ type InsertAnswerProps = {
 };
 
 const InsertAnswer = ({ answer, onChange, onClick }: InsertAnswerProps) => {
-  //   const [answer, setAnswer] = useState("");
   return (
     <div className={styles.insertWrapper}>
       <h4>Add your answer:</h4>
@@ -18,7 +16,9 @@ const InsertAnswer = ({ answer, onChange, onClick }: InsertAnswerProps) => {
         value={answer}
         onChange={onChange}
       />
-      <Button type="DEFAULT" title="Add answer" onClick={onClick} />
+      <div className={styles.button}>
+        <Button type="DEFAULT" title="Add answer" onClick={onClick} />
+      </div>
     </div>
   );
 };
