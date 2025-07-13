@@ -24,15 +24,15 @@ const InsertQuestion = () => {
       );
 
       if (response.status === 201) {
-        toast.success("Your question has been added!", {
-          position: "bottom-center",
+        toast.success("Your question has been added! ✅", {
+          position: "top-center",
           autoClose: 5000,
           hideProgressBar: true,
           closeOnClick: false,
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: "colored",
+          theme: "light",
         });
         setTimeout(() => {
           router.push("/");
@@ -40,27 +40,27 @@ const InsertQuestion = () => {
       }
     } catch (err) {
       if (axios.isAxiosError(err) && err.status === 400) {
-        toast.error("Enter your question", {
-          position: "bottom-center",
+        toast.error("Enter your question 📝", {
+          position: "top-center",
           autoClose: 5000,
           hideProgressBar: true,
           closeOnClick: false,
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: "colored",
+          theme: "light",
         });
       }
       if (axios.isAxiosError(err) && err.status === 401) {
-        toast.error("You need to login or sign up to ask a question", {
-          position: "bottom-center",
+        toast.error("You need to login or sign up to ask a question 🥺", {
+          position: "top-center",
           autoClose: 5000,
           hideProgressBar: true,
           closeOnClick: false,
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: "colored",
+          theme: "light",
         });
       }
       console.log(err);

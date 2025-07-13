@@ -8,6 +8,7 @@
   textarea {
     height: 100px;
     font-family: inherit;
+    padding: 1rem;
   }
 }
 
