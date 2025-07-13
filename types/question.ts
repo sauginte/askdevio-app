@@ -3,4 +3,5 @@ export type QuestionType = {
   questionText: string;
   userId: string;
   createdAt: Date;
+  hasAnswers: boolean;
 };

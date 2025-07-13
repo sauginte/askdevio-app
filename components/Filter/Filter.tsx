@@ -9,19 +9,32 @@ type FilterProps = {
 };
 
 const Filter = ({ setQuestions }: FilterProps) => {
-  const [filteredQuestions, setFilteresQuestions] = useState();
-
   const filterUnanswered = async () => {
     const response = await axios.get(
-      "http://localhost:3001/questions?hasAnswers=false"
+      "http://localhost:3001/questions/withAnswers"
     );
-    console.log(response);
 
-    // const filteredQuestions = response.data.questions;
-    // console.log(...filteredQuestions);
-    // if (response.status === 200) {
-    //   setQuestions((prev) => [prev, ...filteredQuestions]);
-    // }
+    const filteredQuestions = response.data.questions;
+    if (response.status === 200) {
+      const haveAnswers = filteredQuestions.filter(
+        (q: QuestionType) => q.hasAnswers === false
+      );
+      setQuestions(haveAnswers);
+    }
+  };
+
+  const filterAnswered = async () => {
+    const response = await axios.get(
+      "http://localhost:3001/questions/withAnswers"
+    );
+
+    const filteredQuestions = response.data.questions;
+    if (response.status === 200) {
+      const haveAnswers = filteredQuestions.filter(
+        (q: QuestionType) => q.hasAnswers === true
+      );
+      setQuestions(haveAnswers);
+    }
   };
 
   return (
@@ -33,11 +46,7 @@ const Filter = ({ setQuestions }: FilterProps) => {
           title="Without answers"
           onClick={filterUnanswered}
         />
-        <Button
-          type="DEFAULT"
-          title="With answers"
-          onClick={filterUnanswered}
-        />
+        <Button type="DEFAULT" title="With answers" onClick={filterAnswered} />
       </div>
     </div>
   );

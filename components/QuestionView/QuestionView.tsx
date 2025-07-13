@@ -316,13 +316,11 @@ const QuestionView = ({ answers, question, setAnswers }: QuestionViewProps) => {
           </div>
         );
       })}
-
       <InsertAnswer
         answer={answer}
         onChange={(e) => setAnswer(e.target.value)}
         onClick={onAddAnswer}
       />
-
       <div className={styles.buttonWrapper}>
         <Button
           type="DANGER"
