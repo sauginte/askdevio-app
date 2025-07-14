@@ -2,6 +2,7 @@ import styles from "./styles.module.css";
 import Button from "../Button/Button";
 import axios from "axios";
 import { QuestionType } from "@/types/question";
+import { answeredFilter, unansweredFilter } from "@/api/question";
 
 type FilterProps = {
   setQuestions: React.Dispatch<React.SetStateAction<QuestionType[]>>;
@@ -9,9 +10,7 @@ type FilterProps = {
 
 const Filter = ({ setQuestions }: FilterProps) => {
   const filterUnanswered = async () => {
-    const response = await axios.get(
-      "http://localhost:3001/questions/withAnswers"
-    );
+    const response = await unansweredFilter();
 
     const filteredQuestions = response.data.questions;
     if (response.status === 200) {
@@ -23,9 +22,7 @@ const Filter = ({ setQuestions }: FilterProps) => {
   };
 
   const filterAnswered = async () => {
-    const response = await axios.get(
-      "http://localhost:3001/questions/withAnswers"
-    );
+    const response = await answeredFilter();
 
     const filteredQuestions = response.data.questions;
     if (response.status === 200) {

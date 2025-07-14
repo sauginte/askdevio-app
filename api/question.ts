@@ -68,3 +68,27 @@ export const fetchQuestionWithAnswers = async ({
     throw err;
   }
 };
+
+export const unansweredFilter = async () => {
+  try {
+    const response = await axios.get(
+      `${config.BASE_URL}/questions/withAnswers`
+    );
+
+    return response;
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const answeredFilter = async () => {
+  try {
+    const response = await axios.get(
+      `${config.BASE_URL}/questions/withAnswers`
+    );
+
+    return response;
+  } catch (err) {
+    throw err;
+  }
+};
